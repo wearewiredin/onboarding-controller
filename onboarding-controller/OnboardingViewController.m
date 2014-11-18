@@ -25,6 +25,14 @@ static CGFloat maxFont = 22;
 @property (nonatomic, strong) AlignedImageView *imageView;
 @property (nonatomic, strong) UILabel *label;
 
+// TODO: Show this button when InfoLast or SignupLast
+@property (nonatomic, strong) UIButton *rightButton;
+
+// TODO: Show this button and field when SignupLast
+// ALIGN AND ADJUST LABEL ACCORDINGLY
+@property (nonatomic, strong) UITextField *emailField;
+@property (nonatomic, strong) UIButton *leftButton;
+
 @end
 
 @implementation OnboardingViewController

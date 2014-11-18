@@ -15,11 +15,14 @@
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) UIImage *image;
 
+@property (nonatomic, assign) ViewType type;
+
+
 @end
 
 @implementation OnboardingViewData
 
-- (id)initWithContainerColor:(UIColor *)containerColor text:(NSString *)text textColor:(UIColor *)textColor image:(UIImage *)image {
+- (id)initWithContainerColor:(UIColor *)containerColor text:(NSString *)text textColor:(UIColor *)textColor image:(UIImage *)image type:(ViewType)type{
 
     self = [super init];
     if (self) {
@@ -27,6 +30,7 @@
         self.textColor = textColor;
         self.text = text;
         self.image = image;
+        self.type = type;
     }
     return self;
 }
