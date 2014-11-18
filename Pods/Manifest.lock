@@ -1,0 +1,10 @@
+PODS:
+  - FLKAutoLayout (0.1.1)
+
+DEPENDENCIES:
+  - FLKAutoLayout (~> 0.1.1)
+
+SPEC CHECKSUMS:
+  FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
+
+COCOAPODS: 0.34.4
