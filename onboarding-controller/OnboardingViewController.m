@@ -9,6 +9,7 @@
 #import "OnboardingViewController.h"
 #import "OnboardingViewData.h"
 
+#import "AlignedImageView.h"
 #import <FLKAutoLayout/UIView+FLKAutoLayout.h>
 
 static CGFloat textContainerViewHeight = 206;
@@ -21,7 +22,7 @@ static CGFloat maxFont = 22;
 @property (nonatomic, strong) OnboardingViewData *data;
 
 @property (nonatomic, strong) UIView *textContainerView;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) AlignedImageView *imageView;
 @property (nonatomic, strong) UILabel *label;
 
 @end
@@ -54,11 +55,8 @@ static CGFloat maxFont = 22;
     [self.label alignTrailingEdgeWithView:self.textContainerView predicate:@"0.0"];
     [self.label alignBaselineWithView:self.textContainerView predicate:[@(-textContainerBottomMargin) stringValue]];
     
-    self.imageView = [UIImageView new];
-    if (self.data.image) {
-        [self.imageView setImage:self.data.image];
-    }
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView = [[AlignedImageView alloc] initWithImage:self.data.image];
+    self.imageView.contentMode = UIViewContentModeBottom;
     [self.view addSubview:self.imageView];
     
     [self.imageView alignLeadingEdgeWithView:self.view predicate:@"0.0"];
