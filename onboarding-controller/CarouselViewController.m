@@ -11,8 +11,10 @@
 #import "OnboardingViewController.h"
 
 #import <FLKAutoLayout/UIView+FLKAutoLayout.h>
+#import <ChimpKit/ChimpKit.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
-@interface CarouselViewController () <UIPageViewControllerDelegate>
+@interface CarouselViewController () <UIPageViewControllerDelegate, OnboardingViewControllerDelegate>
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) UIPageControl *pageControl;
@@ -43,6 +45,7 @@
             OnboardingViewData *data = self.carouselDatasource.viewsDataset[i];
             [viewController updateWithData:data];
             
+            viewController.delegate = self;            
             [viewControllers addObject:viewController];
         }
         
@@ -71,6 +74,11 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
     OnboardingViewController *viewController = (OnboardingViewController *)pendingViewControllers[0];
+    if (viewController.data.type == ViewTypeInfoLast || viewController.data.type == ViewTypeSignupLast) {
+        self.pageControl.hidden = YES;
+    } else {
+        self.pageControl.hidden = NO;
+    }
     self.pendingIndex = viewController.index;
                                                                             
 }
@@ -80,5 +88,69 @@
     self.pageControl.currentPage = self.pendingIndex;
     
 }
+
+
+#pragma mark - Onboarding Delegate
+
+- (void)viewController:(OnboardingViewController *)viewController didSelectSubscribeEmail:(NSString *)email {
+    [self subscribe:email firstName:nil];
+}
+
+- (void)viewControllerDidSelectSkip:(OnboardingViewController *)viewController {
+    [self.delegate carouselCompleted];
+}
+
+#pragma mark - Subscribe
+
+- (void)subscribe:(NSString *)email firstName:(NSString *)firstName {
+    [self.view endEditing:YES];
+    
+    [SVProgressHUD showWithStatus:@"Subscribing"];
+    
+    NSArray *mailChimpGroups = nil;
+    if (self.carouselDatasource.mailChimpGroup && self.carouselDatasource.mailChimpGroupName) {
+        mailChimpGroups = @[@{@"name": self.carouselDatasource.mailChimpGroupName, @"groups": @[self.carouselDatasource.mailChimpGroup]}];
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:self.carouselDatasource.mailChimpListId forKey:@"id"];
+    
+    NSString *trimmedEmail = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [parameters setValue:@{@"email": trimmedEmail} forKey:@"email"];
+    
+    [parameters setValue:@"false" forKey:@"replace_interests"];
+    [parameters setValue:@"true" forKey:@"update_existing"];
+    
+    BOOL mailChimpDoubleOptIn = NO;
+    [parameters setValue:[NSNumber numberWithBool:mailChimpDoubleOptIn] forKey:@"double_optin"];
+    
+    NSMutableDictionary *mergeVars = [NSMutableDictionary dictionary];
+    if ([firstName length] > 0) {
+        [mergeVars setValue:firstName forKey:@"FNAME"];
+    }
+    
+    if (mailChimpGroups) {
+        NSArray *groupings = [NSArray arrayWithArray:mailChimpGroups];
+        [mergeVars setValue:groupings forKey:@"groupings"];
+    }
+    
+    [parameters setValue:mergeVars forKey:@"merge_vars"];
+    
+    
+    ChimpKit *ck = [ChimpKit sharedKit];
+    [ck callApiMethod:@"lists/subscribe" withApiKey:self.carouselDatasource.mailChimpAPIKey params:parameters andCompletionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"Thank You"];
+            [self.delegate carouselCompleted];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"Please try again"];
+        }
+        
+    }];
+}
+
 
 @end

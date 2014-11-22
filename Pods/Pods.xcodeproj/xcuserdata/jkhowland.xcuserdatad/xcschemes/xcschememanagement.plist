@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-ChimpKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FLKAutoLayout.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2A8FC89B1413B9C2ACA7E652</key>
+		<key>13FBB6E98972C7FFD3ABB1E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>598DADB805B9A41D8FE651A8</key>
+		<key>46C34B2F0EC73B4D0ACF5215</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B9EB603FF6104E9487E8341B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA0105BA4B852024E0358E18</key>
 		<dict>
 			<key>primary</key>
 			<true/>

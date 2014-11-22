@@ -4,3 +4,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'FLKAutoLayout', '~> 0.1.1'
+pod 'ChimpKit', '~> 3.1.1'
+pod 'SVProgressHUD', '~> 1.0'

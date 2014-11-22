@@ -15,5 +15,10 @@
 
 @property (nonatomic, strong) NSArray *viewControllers;
 @property (nonatomic, strong) NSArray *viewsDataset;
+@property (nonatomic, strong) NSString *mailChimpGroupName;
+@property (nonatomic, strong) NSString *mailChimpGroup;
+
+@property (nonatomic, strong) NSString *mailChimpAPIKey;
+@property (nonatomic, strong) NSString *mailChimpListId;
 
 @end

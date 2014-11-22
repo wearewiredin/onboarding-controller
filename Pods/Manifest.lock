@@ -1,10 +1,16 @@
 PODS:
+  - ChimpKit (3.1.1)
   - FLKAutoLayout (0.1.1)
+  - SVProgressHUD (1.0)
 
 DEPENDENCIES:
+  - ChimpKit (~> 3.1.1)
   - FLKAutoLayout (~> 0.1.1)
+  - SVProgressHUD (~> 1.0)
 
 SPEC CHECKSUMS:
+  ChimpKit: 23912164ebcad2c0405bf9c748dac317443d9d85
   FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
 
 COCOAPODS: 0.34.4

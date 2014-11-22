@@ -11,7 +11,7 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface ViewController ()
+@interface ViewController () <CarouselViewControllerDelegate>
 
 @end
 
@@ -21,7 +21,13 @@
     [super viewDidLoad];
 
     CarouselViewController *viewController = [CarouselViewController new];
+    viewController.delegate = self;
+    
     CarouselDatasource *datasource = [CarouselDatasource new];
+    datasource.mailChimpAPIKey = @"";
+    datasource.mailChimpListId = @"";
+    datasource.mailChimpGroup = @"";
+    datasource.mailChimpGroupName = @"";
     
     datasource.viewsDataset = @[
                                 [[OnboardingViewData alloc] initWithContainerColor:UIColorFromRGB(0xb41e23) text:@"Take control of your time\nwith the Pomodoro\nTechnique."textColor:[UIColor whiteColor] image:[UIImage imageNamed:@"onboard1"] type:ViewTypeInfo],
@@ -37,6 +43,11 @@
     [viewController didMoveToParentViewController:self];
     [self.view addSubview:viewController.view];
 
+}
+
+- (void)carouselCompleted {
+
+    
 }
 
 @end

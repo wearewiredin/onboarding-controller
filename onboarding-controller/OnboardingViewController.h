@@ -10,10 +10,24 @@
 
 @class OnboardingViewData;
 
+@protocol OnboardingViewControllerDelegate;
+
 @interface OnboardingViewController : UIViewController
 
 @property (nonatomic, assign) NSInteger index;
 
+@property (nonatomic, strong, readonly) OnboardingViewData *data;
+
+@property (nonatomic, assign) id<OnboardingViewControllerDelegate>delegate;
+
 - (void)updateWithData:(OnboardingViewData *)data;
+
+@end
+
+@protocol OnboardingViewControllerDelegate <NSObject>
+
+- (void)viewController:(OnboardingViewController *)viewController didSelectSubscribeEmail:(NSString *)email;
+
+- (void)viewControllerDidSelectSkip:(OnboardingViewController *)viewController;
 
 @end

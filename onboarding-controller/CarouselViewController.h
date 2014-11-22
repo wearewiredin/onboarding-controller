@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "CarouselDatasource.h"
 
+@protocol CarouselViewControllerDelegate;
+
 @interface CarouselViewController : UIViewController
 
 @property (nonatomic, strong) CarouselDatasource *carouselDatasource;
+@property (nonatomic, assign) id<CarouselViewControllerDelegate>delegate;
+
+@end
+
+@protocol CarouselViewControllerDelegate <NSObject>
+
+- (void)carouselCompleted;
 
 @end
