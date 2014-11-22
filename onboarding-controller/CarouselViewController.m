@@ -10,9 +10,9 @@
 #import "OnboardingViewData.h"
 #import "OnboardingViewController.h"
 
-#import <FLKAutoLayout/UIView+FLKAutoLayout.h>
-#import <ChimpKit/ChimpKit.h>
-#import <SVProgressHUD/SVProgressHUD.h>
+#import "ChimpKit.h"
+#import "SVProgressHUD.h"
+#import "UIView+FLKAutoLayout.h"
 
 @interface CarouselViewController () <UIPageViewControllerDelegate, OnboardingViewControllerDelegate>
 

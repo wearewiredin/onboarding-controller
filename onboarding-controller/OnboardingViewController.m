@@ -10,7 +10,7 @@
 #import "OnboardingViewData.h"
 
 #import "AlignedImageView.h"
-#import <FLKAutoLayout/UIView+FLKAutoLayout.h>
+#import "UIView+FLKAutoLayout.h"
 
 static CGFloat textContainerViewHeight = 206;
 static CGFloat textContainerBottomMargin = 40;
