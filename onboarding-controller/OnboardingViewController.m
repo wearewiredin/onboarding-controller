@@ -227,13 +227,36 @@ static CGFloat maxFont = 22;
 }
 
 - (void)emailInvalid {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please enter a valid email address." message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.emailField becomeFirstResponder];
-    }]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
 
+    NSString *title = @"Please enter a valid email address.";
+    NSString *okay = @"Okay";
+    
+    if ([self isiOS8OrAbove]) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:okay style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [self.emailField becomeFirstResponder];
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } else {
+        
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title
+                                                             message:nil
+                                                            delegate:nil
+                                                   cancelButtonTitle:okay
+                                                   otherButtonTitles: nil];
+        [alertView show];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+}
+
+- (BOOL)isiOS8OrAbove {
+    NSComparisonResult order = [[UIDevice currentDevice].systemVersion compare: @"8.0"
+                                                                       options: NSNumericSearch];
+    return (order == NSOrderedSame || order == NSOrderedDescending);
 }
 
 #pragma mark - Keyboard handling
